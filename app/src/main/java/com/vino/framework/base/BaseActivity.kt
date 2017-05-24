@@ -2,6 +2,7 @@ package com.vino.framework.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import toastShort
 
 /**
  * 所有activity的基类
@@ -10,5 +11,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        toastShort("laker")
     }
 }
