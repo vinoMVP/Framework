@@ -8,10 +8,7 @@ import android.support.v7.app.AppCompatActivity
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    abstract fun setView()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setView()
     }
 }
