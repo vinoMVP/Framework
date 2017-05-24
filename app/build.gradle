@@ -2,12 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 21
+    buildToolsVersion '25.0.0'
+
     defaultConfig {
         applicationId "com.vino.framework"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,12 +26,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support:appcompat-v7:22.2.1'
 
+    // kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    // anko
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"// 主要用于布局
+    compile "org.jetbrains.anko:anko-coroutines:$anko_version"// 主要用于线程切换
+    compile "org.jetbrains.anko:anko-commons:$anko_version"// 通用的类似intent
+    // rx
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    // retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    // okhttp
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    // glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 repositories {
     mavenCentral()
