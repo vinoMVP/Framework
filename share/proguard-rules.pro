@@ -23,20 +23,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-#unionPay
--keep class org.simalliance.openmobileapi.** {*;}
--keep class org.simalliance.openmobileapi.service.** {*;}
-
--keep class com.unionpay.** {*;}
-#alipay
--libraryjars libs/alipaySingle-20170510.jar
-
--keep class com.alipay.android.app.IAlixPay{*;}
--keep class com.alipay.android.app.IAlixPay$Stub{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
--keep class com.alipay.sdk.app.PayTask{ public *;}
--keep class com.alipay.sdk.app.AuthTask{ public *;}
 #微信
 -keep class com.tencent.mm.opensdk.** {
    *;
