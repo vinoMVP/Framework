@@ -12,23 +12,8 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.TypedValue
-import android.widget.Toast
 import com.vino.framework.R
 import java.io.File
-
-/**
- * 短时间的吐司
- */
-fun Context.toastShort(msg: String) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-}
-
-/**
- * 长时间的吐司
- */
-fun Context.toastLong(msg: String) {
-    Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-}
 
 /**
  * 通过id获取dimens

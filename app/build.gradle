@@ -28,13 +28,17 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
 
     // kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     // anko
+    compile "org.jetbrains.anko:anko-sdk21:$anko_version"
     compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"// 主要用于布局
     compile "org.jetbrains.anko:anko-coroutines:$anko_version"// 主要用于线程切换
     compile "org.jetbrains.anko:anko-commons:$anko_version"// 通用的类似intent
+    compile "org.jetbrains.anko:anko-sdk21-coroutines:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
     // rx
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'

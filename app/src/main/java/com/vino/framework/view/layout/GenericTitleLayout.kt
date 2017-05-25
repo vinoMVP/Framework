@@ -1,5 +1,6 @@
 package com.vino.framework.view.layout
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -16,9 +17,11 @@ import org.jetbrains.anko.find
 /**
  * 通用的title布局
  */
-class GenericTitleLayout(context: Context?, attrs: AttributeSet?) : LinearLayout(context), View.OnClickListener {
+class GenericTitleLayout : LinearLayout, View.OnClickListener {
 
     constructor(context: Context?) : this(context, null)
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     val iv_icon_right by lazy { view?.find<ImageView>(R.id.iv_icon_right) }
     val iv_title_center by lazy { view?.find<ImageView>(R.id.iv_title_center) }
@@ -35,7 +38,10 @@ class GenericTitleLayout(context: Context?, attrs: AttributeSet?) : LinearLayout
     var titleHeight: Int? = null
     var view: View? = null
 
+    var onTitleClickListener: OnTitleClickListener? = null
+
     init {
+
         view = View.inflate(context, R.layout.layout_generic_title, null)
         val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, context?.getDimension(R.dimen.y144) as Int)
         addView(view, layoutParams)
@@ -87,22 +93,90 @@ class GenericTitleLayout(context: Context?, attrs: AttributeSet?) : LinearLayout
         iv_title_center?.setImageResource(resId)
     }
 
+    /**
+     * 右起第一个文字
+     */
+    fun setTextRight(text: String) {
+        tv_title_right?.text = text
+    }
+
+    /**
+     * 右起第一个图标
+     */
+    fun setIconRight(resId: Int) {
+        iv_icon_right?.setImageResource(resId)
+    }
+
+    /**
+     * 设置右起第二个图标
+     */
+    fun setIconRightSecond(resId: Int) {
+        iv_icon_right_second?.setImageResource(resId)
+    }
+
+    /**
+     * 是否显示未读消息提示
+     */
+    fun showMsgUnRead(isShow: Boolean) {
+        tv_unread?.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * 设置标题的背景
+     */
+    fun setTitleBg(id: Int) {
+        rl_base_title?.setBackgroundColor(id)
+    }
+
+    /**
+     * title展开，消失的动画
+     */
+    fun doAnim(show: Boolean) {
+        val start = if (show) 0 else titleHeight as Int
+        val end = if (show) titleHeight as Int else 0
+
+        val animator: ValueAnimator = ValueAnimator.ofInt(start, end)
+        animator.addUpdateListener {
+            animation: ValueAnimator? ->
+            val value = animation?.animatedValue as Int
+            val layoutParams = rl_base_title?.layoutParams
+            layoutParams?.height = value
+            rl_base_title?.layoutParams = layoutParams
+        }
+        animator.duration = 300
+        animator.start()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.iv_title_back -> {
-            }
-            R.id.tv_title_left -> {
-            }
-            R.id.tv_title_left_second -> {
-            }
-            R.id.tv_title_right -> {
-            }
-            R.id.tv_title_center -> {
-            }
-            R.id.iv_icon_right -> {
-            }
-            R.id.iv_icon_right_second -> {
-            }
+            R.id.iv_title_back,
+            R.id.tv_title_left -> onTitleClickListener?.onBackClick()
+
+            R.id.tv_title_left_second -> onTitleClickListener?.onLeftSecondTextClick()
+
+            R.id.tv_title_right -> onTitleClickListener?.onRightTextClick()
+
+            R.id.tv_title_center -> onTitleClickListener?.onTitleClick()
+
+            R.id.iv_icon_right -> onTitleClickListener?.onRightFirstIconClick()
+
+            R.id.iv_icon_right_second -> onTitleClickListener?.onRightSecondIconClick()
+
         }
+    }
+
+    interface OnTitleClickListener {
+
+        fun onBackClick()
+
+        fun onLeftSecondTextClick()
+
+        fun onTitleClick()
+
+        fun onRightFirstIconClick()
+
+        fun onRightSecondIconClick()
+
+        fun onRightTextClick()
     }
 }
