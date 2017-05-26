@@ -1,4 +1,4 @@
-package com.vino.share
+package com.vino.tencent
 
 import android.app.Activity
 import android.content.Context
@@ -7,12 +7,11 @@ import com.tencent.connect.share.QQShare
 import com.tencent.connect.share.QzoneShare
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
-import java.util.ArrayList
 
 /**
  * QQ分享的库
  */
-object QQShare {
+object QQ {
 
     lateinit var api: Tencent
 

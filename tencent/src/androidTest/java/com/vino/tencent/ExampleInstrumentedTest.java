@@ -1,4 +1,4 @@
-package com.vino.share;
+package com.vino.tencent;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

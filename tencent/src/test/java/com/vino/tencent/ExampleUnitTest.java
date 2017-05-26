@@ -1,4 +1,4 @@
-package com.vino.share;
+package com.vino.tencent;
 
 import org.junit.Test;
 
