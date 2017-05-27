@@ -13,6 +13,8 @@ import android.widget.BaseAdapter
  */
 abstract class BaseListAdapter<T>(val list: List<T>) : BaseAdapter() {
 
+    lateinit var rootView: View
+
     override fun getCount(): Int {
         return list.size
     }
@@ -45,7 +47,8 @@ abstract class BaseListAdapter<T>(val list: List<T>) : BaseAdapter() {
     inner class ViewHolder {
 
         fun getRootView(parent: ViewGroup?): View {
-            return this@BaseListAdapter.getRootView(parent)
+            rootView = this@BaseListAdapter.getRootView(parent)
+            return rootView
         }
 
         fun setData(t: T, position: Int) {
@@ -56,4 +59,6 @@ abstract class BaseListAdapter<T>(val list: List<T>) : BaseAdapter() {
     abstract fun getRootView(parent: ViewGroup?): View
 
     abstract fun setData(t: T, position: Int)
+
+    inline fun <reified T : View> find(id: Int): T = rootView.findViewById(id) as T
 }

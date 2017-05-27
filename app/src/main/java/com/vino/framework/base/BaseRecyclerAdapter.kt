@@ -14,6 +14,8 @@ import com.vino.framework.listener.OnItemClickListener
  */
 abstract class BaseRecyclerAdapter<T>(val list: List<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    lateinit var rootView: View
+
     var onItemClickListener: OnItemClickListener? = null
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
@@ -21,7 +23,8 @@ abstract class BaseRecyclerAdapter<T>(val list: List<T>) : RecyclerView.Adapter<
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return BaseHolder(getRootView(parent, onItemClickListener))
+        rootView = getRootView(parent, onItemClickListener)
+        return BaseHolder(rootView)
     }
 
     override fun getItemCount(): Int {
@@ -34,13 +37,10 @@ abstract class BaseRecyclerAdapter<T>(val list: List<T>) : RecyclerView.Adapter<
 
     inner class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-        fun getRootView(parent: ViewGroup?, onItemClickListener: OnItemClickListener?): View {
-            return this@BaseRecyclerAdapter.getRootView(parent, onItemClickListener)
-        }
-
         fun setData(t: T, position: Int) {
             this@BaseRecyclerAdapter.setData(t, position)
         }
     }
 
+    inline fun <reified T : View> find(id: Int): T = rootView.findViewById(id) as T
 }
