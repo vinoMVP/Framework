@@ -15,34 +15,23 @@ import com.vino.framework.listener.OnItemClickListener
  */
 abstract class BaseRecyclerAdapter<T>(val list: List<T>, val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    lateinit var rootView: View
-    val mContext = activity
-
     var onItemClickListener: OnItemClickListener? = null
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        (holder as BaseRecyclerAdapter<T>.BaseHolder).setData(list[position], position)
+        @Suppress("UNCHECKED_CAST")
+        (holder as BaseRecyclerHolder<T>).setData(list[position], position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        rootView = getRootView(parent, onItemClickListener)
-        return BaseHolder(rootView)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseRecyclerHolder<T> {
+        return getHolder(getRootView(parent), activity, onItemClickListener)
     }
+
+    abstract fun getHolder(rootView: View, activity: Activity, onItemClickListener: OnItemClickListener?): BaseRecyclerHolder<T>
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    abstract fun getRootView(parent: ViewGroup?, onItemClickListener: OnItemClickListener?): View
+    abstract fun getRootView(parent: ViewGroup?): View
 
-    abstract fun setData(t: T, position: Int)
-
-    inner class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-
-        fun setData(t: T, position: Int) {
-            this@BaseRecyclerAdapter.setData(t, position)
-        }
-    }
-
-    inline fun <reified T : View> find(id: Int): T = rootView.findViewById(id) as T
 }

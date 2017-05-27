@@ -12,10 +12,7 @@ import android.widget.BaseAdapter
  * @创建时间: 2017/5/24 20:43
  * @描述: listView adapter的基类
  */
-abstract class BaseListAdapter<T>(val list: List<T>, activity: Activity) : BaseAdapter() {
-
-    lateinit var rootView: View
-    val mContext = activity
+abstract class BaseListAdapter<T>(val list: List<T>, val activity: Activity) : BaseAdapter() {
 
     override fun getCount(): Int {
         return list.size
@@ -30,15 +27,16 @@ abstract class BaseListAdapter<T>(val list: List<T>, activity: Activity) : BaseA
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var viewHolder: ViewHolder
+        var viewHolder: BaseHolder<T>
         var view: View
         if (convertView === null) {
-            viewHolder = ViewHolder()
+            viewHolder = getHolder(activity, parent)
             view = viewHolder.getRootView(parent)
             view.tag = viewHolder
         } else {
             view = convertView
-            viewHolder = view.tag as BaseListAdapter<T>.ViewHolder
+            @Suppress("UNCHECKED_CAST")
+            viewHolder = view.tag as BaseHolder<T>
         }
 
         viewHolder.setData(list[position], position)
@@ -46,21 +44,6 @@ abstract class BaseListAdapter<T>(val list: List<T>, activity: Activity) : BaseA
         return view
     }
 
-    inner class ViewHolder {
+    abstract fun getHolder(activity: Activity, parent: ViewGroup?): BaseHolder<T>
 
-        fun getRootView(parent: ViewGroup?): View {
-            rootView = this@BaseListAdapter.getRootView(parent)
-            return rootView
-        }
-
-        fun setData(t: T, position: Int) {
-            this@BaseListAdapter.setData(t, position)
-        }
-    }
-
-    abstract fun getRootView(parent: ViewGroup?): View
-
-    abstract fun setData(t: T, position: Int)
-
-    inline fun <reified T : View> find(id: Int): T = rootView.findViewById(id) as T
 }
