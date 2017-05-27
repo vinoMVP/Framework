@@ -1,5 +1,6 @@
 package com.vino.framework.base
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import com.vino.framework.listener.OnItemClickListener
  * @创建时间: 2017/5/24 21:24
  * @描述: recyclerView 的baseAdapter
  */
-abstract class BaseRecyclerAdapter<T>(val list: List<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class BaseRecyclerAdapter<T>(val list: List<T>, val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var rootView: View
+    val mContext = activity
 
     var onItemClickListener: OnItemClickListener? = null
 

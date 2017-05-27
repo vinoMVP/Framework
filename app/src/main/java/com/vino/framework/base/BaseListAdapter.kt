@@ -1,5 +1,6 @@
 package com.vino.framework.base
 
+import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -11,9 +12,10 @@ import android.widget.BaseAdapter
  * @创建时间: 2017/5/24 20:43
  * @描述: listView adapter的基类
  */
-abstract class BaseListAdapter<T>(val list: List<T>) : BaseAdapter() {
+abstract class BaseListAdapter<T>(val list: List<T>, activity: Activity) : BaseAdapter() {
 
     lateinit var rootView: View
+    val mContext = activity
 
     override fun getCount(): Int {
         return list.size
